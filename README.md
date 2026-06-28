@@ -1,15 +1,15 @@
-# 🔧 Mantis — AI Product Diagnostic Platform
+#  Mantis — AI Product Diagnostic Platform
 
 > **"Like having a expert technician in your pocket."**  
 > Mantis turns your product manuals and repair videos into an intelligent, conversational diagnostic assistant.
 
 ---
 
-## 🎯 The Problem
+## The Problem
 
 When a product breaks, users are left searching through 50-page manuals, watching irrelevant YouTube videos, or waiting days for a technician. Companies spend thousands on support calls for issues that could be solved in minutes.
 
-## ✅ The Solution
+## The Solution
 
 Mantis lets companies upload their product documentation once. Users then get instant, intelligent, cited diagnostic assistance — the AI asks focused follow-up questions, references exact pages from the manual, and guides users to a fix step by step.
 
@@ -27,26 +27,26 @@ This is Mantis
 
 ---
 
-## ✨ Features
+## Features
 
 ### Core
-- 🤖 **Conversational AI Diagnosis** — asks ONE focused question at a time to narrow down the issue
-- 📄 **Manual-cited Answers** — every response cites the exact page and section from the official manual
-- 🧠 **Multi-turn Memory** — remembers the full conversation context via MongoDB
-- 📹 **Video Support** — Whisper transcribes repair videos; AI directs users to exact timestamps
-- 🖼️ **Image Troubleshooting** — upload photos of error screens or damaged parts for visual diagnosis
-- 🌍 **Multi-language** — ask questions in any language, get answers in the same language
+ **Conversational AI Diagnosis** — asks ONE focused question at a time to narrow down the issue
+ **Manual-cited Answers** — every response cites the exact page and section from the official manual
+ **Multi-turn Memory** — remembers the full conversation context via MongoDB
+ **Video Support** — Whisper transcribes repair videos; AI directs users to exact timestamps
+ **Image Troubleshooting** — upload photos of error screens or damaged parts for visual diagnosis
+ **Multi-language** — ask questions in any language, get answers in the same language
 
 ### Bonus Features Implemented
 | Feature | Status |
 |---|---|
-| Image-based Troubleshooting | ✅ Grok Vision |
-| Video Timestamp Citations | ✅ Whisper + ChromaDB |
-| Multi-language Support | ✅ LLaMA 3.3 70B |
+| Image-based Troubleshooting | Grok Vision |
+| Video Timestamp Citations | Whisper + ChromaDB |
+| Multi-language Support | LLaMA 3.3 70B |
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 | Technology | Purpose |
@@ -75,7 +75,7 @@ This is Mantis
 
 ---
 
-## 🏗️ How It Works
+## How It Works
 Company uploads PDF manual or repair video
 
 ↓
@@ -176,7 +176,7 @@ npm run dev
 
 Open **http://localhost:3000**
 
-## 📡 API Reference
+## API Reference
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -195,13 +195,13 @@ Open **http://localhost:3000**
 
 | Product | Manual | Video Transcript |
 |---|---|---|
-| Air Conditioner | ✅ 128 chunks | ✅ 147 segments |
-| Washing Machine | ✅ 153 chunks | — |
-| Monitor | ✅ 113 chunks | — |
+| Air Conditioner |  128 chunks |  147 segments |
+| Washing Machine |  153 chunks | — |
+| Monitor |  113 chunks | — |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 Mantis/
 
 ├── backend/
