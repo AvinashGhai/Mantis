@@ -141,7 +141,7 @@ export function AppShell({ onBack, activeUnit, registeredUnits = [] }: AppShellP
     setMessages((prev) => [...prev, {
         id: `esc-${Date.now()}`,
         sender: "assistant",
-        text: "UNIT_ESCALATED: A Philix engineer has been notified. Ticket #TQ-091 assigned.",
+        text: "UNIT_ESCALATED: A Mantis engineer has been notified. Ticket #TQ-091 assigned.",
         time: nowTime()
     }]);
   };

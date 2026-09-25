@@ -24,7 +24,7 @@ export function ProductSidebar({ products, selected, onSelect, onReset }: Produc
           <Wrench className="h-4 w-4" />
         </span>
         <div>
-          <p className="font-display text-base font-semibold leading-none text-text">Torque</p>
+          <p className="font-display text-base font-semibold leading-none text-text">Mantis</p>
           <p className="text-[11px] uppercase tracking-[0.18em] text-text-muted">Product expert</p>
         </div>
       </div>

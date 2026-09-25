@@ -10,13 +10,6 @@ motor
 pymongo
 pydantic
 pydantic-settings
-langchain
-langchain-community
-langchain-openai
-tiktoken
-torch
-openai-whisper
-pdfminer.six
 pdfplumber
 pypdfium2
 aiohttp

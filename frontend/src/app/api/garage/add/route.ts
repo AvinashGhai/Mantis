@@ -1,19 +1,40 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import connectToDatabase from "@/lib/mongodb";
 import GarageItem from "@/models/GarageItem";
+import User from "@/models/User";
 
 export async function POST(req: Request) {
   try {
     console.log("--- API START: Adding to Garage ---");
     await connectToDatabase();
     
+    // Get logged-in user email from session cookie
+    const cookieStore = await cookies();
+    const sessionCookie = cookieStore.get("user_session");
+    
+    if (!sessionCookie || !sessionCookie.value) {
+      return NextResponse.json({ success: false, error: "Unauthorized. Please log in first." }, { status: 401 });
+    }
+
+    let sessionData;
+    try {
+      sessionData = JSON.parse(sessionCookie.value);
+    } catch (e) {
+      return NextResponse.json({ success: false, error: "Invalid session cookie." }, { status: 400 });
+    }
+
+    const user = await User.findOne({ email: sessionData.email });
+    if (!user) {
+      return NextResponse.json({ success: false, error: "User not found." }, { status: 401 });
+    }
+
     const data = await req.json();
     console.log("Received Data:", data);
 
-    // FIX: Map the 'name' from frontend to 'productName' for the Schema
-    // FIX: Ensure userId is a valid placeholder if not using real Auth yet
+    // Save garage item with the logged-in user's actual MongoDB ObjectId
     const newItem = await GarageItem.create({
-      userId: "666c5d1e2f3a4b5c6d7e8f90", // Must be a valid 24-character hex string for MongoDB
+      userId: user._id,
       productName: data.name, // Mapped from 'name'
       brand: data.brand,
       category: data.category,
@@ -31,7 +52,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, item: newItem }, { status: 201 });
 
   } catch (error: any) {
-    // THIS WILL SHOW YOU THE ERROR IN YOUR TERMINAL
     console.error("❌ MONGODB ERROR:", error.message);
     
     return NextResponse.json({ 

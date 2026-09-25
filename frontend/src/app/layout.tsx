@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Torque · AI Product Expert",
+  title: "Mantis · AI Product Expert",
   description:
     "Multimodal troubleshooting and maintenance copilot for scooters, appliances and machines.",
 };

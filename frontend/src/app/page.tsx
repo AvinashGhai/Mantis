@@ -21,21 +21,26 @@ function HomeContent() {
   const [activeUnit, setActiveUnit] = useState<any>(null);
 
   useEffect(() => {
+    // Check localStorage first to persist session
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setIsLoggedIn(true);
+        setRole(parsedUser.role);
+        return;
+      } catch (e) {
+        console.error("Failed to parse user from storage", e);
+      }
+    }
+
     const roleParam = searchParams.get("role");
     const authParam = searchParams.get("authenticated");
 
-    if (authParam === "true") {
+    if (authParam === "true" && roleParam) {
       setIsLoggedIn(true);
       setRole(roleParam as any);
-
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        try {
-          setUser(JSON.parse(storedUser));
-        } catch (e) {
-          console.error("Failed to parse user from storage", e);
-        }
-      }
     }
   }, [searchParams]);
 
@@ -46,6 +51,8 @@ function HomeContent() {
     setIsRepairing(false);
     setUser(null);
     localStorage.removeItem("user");
+    // Clear user_session cookie
+    document.cookie = "user_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     router.push("/login");
   };
 
@@ -74,7 +81,7 @@ function HomeContent() {
       <div className="flex h-screen flex-col bg-canvas text-text overflow-hidden">
         <header className="flex items-center justify-between border-b border-line px-6 py-3 bg-surface/50 shrink-0 z-20 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <div className="bg-signal text-canvas font-bold px-2 py-0.5 rounded text-sm uppercase tracking-tighter">Torque</div>
+            <div className="bg-signal text-canvas font-bold px-2 py-0.5 rounded text-sm uppercase tracking-tighter">Mantis</div>
             <span className="text-text-muted text-[10px] font-mono uppercase tracking-[0.2em] hidden sm:block border-l border-line pl-3">Garage_Portal</span>
           </div>
           
@@ -122,7 +129,7 @@ function HomeContent() {
       <div className="flex h-screen flex-col bg-canvas text-text overflow-hidden">
         <header className="flex items-center justify-between border-b border-line px-6 py-4 bg-surface shrink-0 z-20 shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="bg-confirm text-canvas font-bold px-2 py-0.5 rounded text-sm italic uppercase tracking-tighter">Philix</div>
+            <div className="bg-confirm text-canvas font-bold px-2 py-0.5 rounded text-sm italic uppercase tracking-tighter">Mantis</div>
             <span className="text-confirm text-[10px] font-mono uppercase tracking-[0.4em] border-l border-confirm/30 pl-3">HQ_ADMIN_STRATOR</span>
           </div>
           <div className="flex items-center gap-6">

@@ -111,7 +111,7 @@ export function ChatPanel({
         <div className="mt-3 flex justify-center items-center gap-4 opacity-30">
             <div className="h-[1px] w-12 bg-line" />
             <p className="text-[8px] font-mono text-text-muted uppercase tracking-[0.4em]">
-                Torque // Expert_Technician_Protocol
+                Mantis // Expert_Technician_Protocol
             </p>
             <div className="h-[1px] w-12 bg-line" />
         </div>

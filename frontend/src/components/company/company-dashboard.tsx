@@ -77,19 +77,29 @@ export function CompanyDashboard() {
         finalDataLocation = `s3://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}/${fileKey}`;
       }
 
+      const storedUser = localStorage.getItem("user");
+      const user = storedUser ? JSON.parse(storedUser) : null;
+      const creatorEmail = user ? user.email : "anonymous@company.com";
+
       // STEP 3: REGISTER IN MONGODB (Marketplace Listing)
-      await fetch("/api/products/add", {
+      const addRes = await fetch("/api/products/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: productName,
           category: category,
-          brand: "Philix",
+          brand: user?.name || "Mantis",
           source_url: finalDataLocation,
           product_id: productId, // Link to backend ID
-          icon: productId === "ac" ? "Wind" : productId === "washing_machine" ? "WashingMachine" : "Cpu"
+          icon: productId === "ac" ? "Wind" : productId === "washing_machine" ? "WashingMachine" : "Cpu",
+          creatorEmail: creatorEmail
         }),
       });
+
+      const addData = await addRes.json();
+      if (!addData.success) {
+        throw new Error(addData.error || "Failed to register product");
+      }
 
       // UI SUCCESS STATE
       setUploadSuccess(true);
@@ -112,7 +122,7 @@ export function CompanyDashboard() {
       <div className="flex justify-between items-center bg-surface-2/40 p-6 rounded-3xl border border-line">
         <div>
             <h1 className="text-3xl font-display font-bold text-text tracking-tight">Manufacturer HQ</h1>
-            <p className="text-text-muted text-sm mt-1 uppercase font-mono tracking-widest opacity-60">Status: Philix_Primary_Admin</p>
+            <p className="text-text-muted text-sm mt-1 uppercase font-mono tracking-widest opacity-60">Status: Mantis_Primary_Admin</p>
         </div>
         <Badge variant="outline" className="border-confirm/20 text-confirm bg-confirm/5 font-mono px-4 py-1.5 h-fit">
             <Activity size={14} className="mr-2 animate-pulse"/> AI_ENGINE_LOCAL_PORT_8000
@@ -194,7 +204,7 @@ export function CompanyDashboard() {
                     <div className="relative">
                         <Globe size={14} className="absolute left-4 top-4 text-text-faint" />
                         <Input 
-                            placeholder="https://manuals.philix.com/..." 
+                            placeholder="https://manuals.mantis.com/..." 
                             value={externalUrl}
                             onChange={(e) => setExternalUrl(e.target.value)}
                             className="pl-12 bg-surface-2 border-line h-12 rounded-xl" 
@@ -255,7 +265,7 @@ export function CompanyDashboard() {
                 <CardContent>
                     <ScrollArea className="h-[250px] pr-4">
                         <div className="space-y-4">
-                            <AssetItem name="Philix_AC_Guide.pdf" status="Synced" />
+                            <AssetItem name="Mantis_AC_Guide.pdf" status="Synced" />
                             <AssetItem name="Wash_Repair_V1.pdf" status="Trained" />
                             <AssetItem name="Monitor_Datasheet" status="Indexed" />
                             <AssetItem name="Circuit_Logic.png" status="Ready" />

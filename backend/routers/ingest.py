@@ -9,7 +9,7 @@ os.makedirs("uploads", exist_ok=True)
 
 @router.post("/pdf/{product_id}")
 async def ingest_pdf(product_id: str, file: UploadFile = File(...)):
-    if not file.filename.endswith(".pdf"):
+    if not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files accepted")
     temp_path = f"uploads/{product_id}_{file.filename}"
     try:
@@ -32,7 +32,7 @@ async def ingest_pdf(product_id: str, file: UploadFile = File(...)):
 
 @router.post("/transcript/{product_id}/{video_id}")
 async def ingest_transcript(product_id: str, video_id: str, file: UploadFile = File(...)):
-    if not file.filename.endswith(".json"):
+    if not file.filename.lower().endswith(".json"):
         raise HTTPException(status_code=400, detail="Only JSON transcript files accepted")
     try:
         content = await file.read()
